@@ -1,7 +1,6 @@
 Algoritm 11: Innsetting i et binært søketre
 
 Input: En node v og et element x
-
 Output: En oppdatert node v der en node som inneholder x er en etterkommer av v
 
 Procedure Insert (v,x)
