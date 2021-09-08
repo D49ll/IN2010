@@ -6,44 +6,53 @@ class Teque:
         i = len(self.queue)
         self.queue = self.queue + [x]
 
+
     def push_front(self, x):
         i = len(self.queue)
         self.queue = self.queue + [0]
         while 0 < i:
             self.queue[i] = self.queue[i-1]
-            i -= i
+            i = i - 1
+        self.queue[i] = x
 
     def push_middle(self,x):
-        length = len(self.queue)
-        i = ((length + 1) // 2)
+        i = len(self.queue)
+        k = ((i + 1) // 2)
 
-        while i < length:
-            
+        self.queue = self.queue + [0]
 
-        self.queue.insert(i, x)
+        while k < i:
+            self.queue[i] = self.queue[i - 1]
+            i = i - 1 
+        self.queue[i] = x 
 
     def get(self, i):
         print(self.queue[i])
 
-q = Teque()
+    def queue_print(self):
+        print(f"q = {self.queue}")
 
-f = open('teque/1.in', 'r')
+q = Teque() # New queue instance
 
-Lines = f.readlines()
+f = open('1.in', 'r') #Open inputfile
 
-n = int(Lines[0])
+Lines = f.readlines() #read each line of file
+
+n = int(Lines[0]) #First line 
 
 for i in range(1, n+1):
     msg, x = Lines[i].split(" ")
     x = int(x)
+    #print(f"msg={msg} and int={x}")
     if msg == "push_back":
         q.push_back(x)
     elif msg == "push_front":
         q.push_front(x)
     elif msg == "push_middle":
         q.push_middle(x)
-    else:
+    elif msg == "get":
         q.get(x) # x = i
 
+q.queue_print()
 
 
