@@ -1,26 +1,50 @@
-f = open('test0.in', 'r') #Open inputfile
 
-Lines = f.read().splitlines() #read each line of file
+#Read from file
+f = open('test0.in', 'r')
+in_str = f.read().splitlines() #Uses \n as delimitor
 
-print(Lines)
-cat_position = int(Lines[0])
-parent = []
-child = [[]]
-search_index = 0
-run = True
+#Kattis
+#import sys
+#in_str = sys.stdin.read().splitlines() 
 
-for i in range(1, len(Lines)):
-    string = Lines[i].split(" ")
-    parent[search_index] = string[i]
+#Define lists
+parents = []
+children = []
+path = []
 
-    for j in range(len(string)):
-        child[search_index][j] = string[j] 
+#Cat location from input
+cat = int(in_str[0])
+path.append(cat)
 
-    print(string[0])
-    print(string[1:])
+#Create a list of parents and children
+i = 1
+while True:
+    node = in_str[i].split(" ")
+
+    parent = int(node[0])
+    child = [int (b) for b in node[1:]]
+
+    if parent == -1:
+        break
     
-    search_index =+ search_index
+    parents.append(parent)
+    children.append(child)
+    i += 1
 
+
+#Find next step by looking for cat in children
+i = 0
+while i < len(children):
+    if cat in children[i]:
+        cat = parents[i]
+        path.append(cat)
+        i = 0
+    else:
+        i += 1
+
+#Kattis requires steps to be type str
+for step in path:
+    print(str(step))
 
 
 
