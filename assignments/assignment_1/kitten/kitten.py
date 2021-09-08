@@ -1,4 +1,3 @@
-
 #Read from file
 f = open('test0.in', 'r')
 in_str = f.read().splitlines() #Uses \n as delimitor
@@ -42,7 +41,7 @@ while i < len(children):
     else:
         i += 1
 
-#Kattis requires steps to be type str
+#Kattis requires string output 
 for step in path:
     print(str(step))
 
