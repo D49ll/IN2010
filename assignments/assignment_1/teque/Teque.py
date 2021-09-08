@@ -29,14 +29,16 @@ class Teque:
     def get(self, i):
         print(self.queue[i])
 
-    def queue_print(self):
-        print(f"q = {self.queue}")
+#Kattis input
+import sys
+Lines = sys.stdin.readlines()
 
-q = Teque() # New queue instance
+#Sample input
+#f = open('1.in', 'r') #Open inputfile
+#Lines = f.readlines() #read each line of file
 
-f = open('1.in', 'r') #Open inputfile
 
-Lines = f.readlines() #read each line of file
+q = Teque() 
 
 n = int(Lines[0]) #First line 
 
@@ -52,7 +54,4 @@ for i in range(1, n+1):
         q.push_middle(x)
     elif msg == "get":
         q.get(x) # x = i
-
-q.queue_print()
-
 
