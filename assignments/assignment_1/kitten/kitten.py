@@ -1,6 +1,6 @@
 #Read from file
 f = open('test0.in', 'r')
-in_str = f.read().splitlines() #Uses \n as delimitor
+input_ = f.read().splitlines() #Uses \n as delimitor
 
 #Kattis
 #import sys
@@ -12,13 +12,13 @@ children = []
 path = []
 
 #Cat location from input
-cat = int(in_str[0])
+cat = int(input_[0])
 path.append(cat)
 
 #Create a list of parents and children
 i = 1
 while True:
-    node = in_str[i].split(" ")
+    node = input_[i].split(" ")
 
     parent = int(node[0])
     child = [int (b) for b in node[1:]]

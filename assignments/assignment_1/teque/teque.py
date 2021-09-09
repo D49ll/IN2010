@@ -6,7 +6,6 @@ class Teque:
         i = len(self.queue)
         self.queue = self.queue + [x]
 
-
     def push_front(self, x):
         i = len(self.queue)
         self.queue = self.queue + [0]
