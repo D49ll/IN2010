@@ -1,15 +1,27 @@
-Pseudo code for kitten assignment
+Naturlig språk:
+Her vil det være naturlig å bruke så mye av input-informasjonen som mulig.
 
-Input: A general tree.
-Integers of parent and children nodes.
-First line indicates at what node cat is stuck.
-The following lines indicates a parent node with its children: 
-    a, b_0, b_1 ... b_n
-Tree description is finished by a -1 in the last line of input
+1.  Vi vet kattens start posisjon
+2.  Vi vet at inputen tilsvarer et generelt tree og at den foreldrenoden (a)
+    som ikke finnes i noen barnenoder (b_n) vil tilsvare roten til treet.
 
-Output: The path from kittens original position to the tree root.
+Basert på dette kan man finne stien katten må traversere ved søke etter 
+kattens posisjon i alle barnenoder. Når man finner kattens posisjon i en 
+barnenode kan katten bevege seg til dens foreldrenode. Kattes posisjon blir så
+oppdatert og søkingen gjentas til katten står i roten.
 
-proc find_index(input):
+Pseudo kode:
+Input:
+Heltall som representerer foreldre- og barnenoderparent til et generelt tree.
+    Første linje indikerer kattens posisjon i treet.
+    De neste linjene indikerer et subtre med tilhørende barnenoder
+        a, b_0, b_1 ... b_n
+    Treet er ferdig beskrevet når input er -1.
+    
+Output: 
+Stien katten må traversere for å nå roten til treet
+
+proc find_path(input):
     cat_position <- input[0]
     path[0] <- cat_position 
     

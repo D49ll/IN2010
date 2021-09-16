@@ -1,47 +1,42 @@
-A = [x for x in range(10)]
-
-balanced = []
-
-def print_binary_tree(A,balanced):
+def balanced_binary_tree_input(A,balanced):
     if len(A) == 2:
         balanced.append(A[-1])
-        balanced.append(A[-2])
-        #print(A[-1])
-        #print(A[-2])
+        balanced.append(A[0])
 
     elif len(A) == 1:
-        balanced.append(A[-1])
-        #print(A[-1])
-    
-    #elif len(A)%2 == 1:
+        balanced.append(A[0])
+
     else:
         parent_index = len(A) // 2
         balanced.append(A[parent_index])
-        #print(A[parent_index])
-        right_child_array = A[parent_index+1:]
-        left_child_array = A[:parent_index]
         
-        print_binary_tree(right_child_array, balanced)
-        print_binary_tree(left_child_array, balanced)
-    '''
-    else:
-        parent_index = (len(A)//2) - 1
-        balanced.append(A[parent_index])
-        #print(A[parent_index])
-
         right_child_array = A[parent_index+1:]
         left_child_array = A[:parent_index]
-        print_binary_tree(right_child_array, balanced)
-        print_binary_tree(left_child_array, balanced)
-    '''
+        balanced_binary_tree_input(right_child_array, balanced)
+        balanced_binary_tree_input(left_child_array, balanced)
 
     return balanced
+eq 10 | python3 balancearray.py | java BalanceChecker DDD
 
-test = print_binary_tree(A, balanced)
-print(test)
+#Read/write to terminal
+import sys
 
-#string_ints = [str(int) for int in test]
+#Variables declaration
+balanced_tree = []
+sorted_input = []
 
-#test2=" ".join(string_ints)
+#Reads input from terminal
+for line in sys.stdin:
+  sorted_input.append(int(line))
 
-#print(test2)
+#Creates a input list representing a balanced tree
+balanced_tree = balanced_binary_tree_input(sorted_input, balanced_tree)
+
+
+#Converts input list to string
+string_ints = [str(int) for int in balanced_tree]
+
+#Writes output to terminal, with \n as delimitor
+sys.stdout.write("\n".join(string_ints))
+
+

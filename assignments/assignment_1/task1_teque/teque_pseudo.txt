@@ -1,12 +1,52 @@
+Naturlig språk:
+
+"push_back(x)":
+For å plassere elementet x bakerst i køen finner man først finne størrelsen
+til køen. Deretter utvides køen, slik at størrelsen tilsvarer den indeksen 
+man ønsker å plassere x.
+    eks:    |A| = 11, lager en ny ledig plass i enden av arrayet. 
+            Denne posisjonen tilsvarer A[11]. 
+            Deretter plasseres x i denne array posisjonen.
+
+"push_front(x)":
+For å plassere elementet x foran i må man først flytte alle elementene som
+allerede er i køen et hakk lengre bak. Det vil være naturlig å starte
+bakers i køen, slik man ikke overskriver noen verdier. 
+
+Først utvides køen med et nytt element, indeks tilsvarende størrelsen til arrayet.
+Deretter flyttes alle elementene ett hakk bakover. Når man har flyttet alle
+elementer ett hakk bakover kan man overskrive første element i arrayet. Det første
+elementet vil dermed bli overskrevet av x. På den måten har man plassert x foran i køen,
+uten å slette noen elementer fra køen.
+
+"push_middle(x)":
+Dette vil være veldig likt metoden brukt i push_front(x), bare at i dette tilfellet
+vil sluttposisjonen på hvor man skal flytte elementene bakover variere. 
+Sluttposisjonen vil være midten av arrayet. 
+
+Det vil si, først lager vi en ledig plass i enden av arrayet ved å finne størrelsen til A (|A|).
+Denne størrelsen tilsvarer indeksen til den ledige passen.
+
+Deretter finner vi sluttposisjonen ved å dele |A| på 2. Denne størrelsen vil være indeksen 
+til midten av arrayet. Alle elementer som har større indeks flyttes så ett hakk bakover. 
+
+Når man når midt-indeksen vil man kunne overskrive elementet med x. 
+
+"get(i)":
+Da vi ikke jobber med pekere eller lenkede lister vil det være tilstrekkelig å printe
+verdien til arrayet basert på indeksen som sendes inn.
+
+
+Pseudo kode:
 
 proc push_back(x):
-    i <- |A| + 1
+    i <- |A|
     A[i] <- x
 O(1)
 
 proc push_front(x):
     i <- |A|
-    while i > 0 do:
+    while 0 < i do:
         A[i] <- A[i - 1]
         i <- i - 1
     A[i] <- x

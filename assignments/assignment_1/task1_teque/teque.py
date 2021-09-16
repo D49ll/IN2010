@@ -3,7 +3,6 @@ class Teque:
         self.queue = []
 
     def push_back(self, x):
-        i = len(self.queue)
         self.queue = self.queue + [x]
 
     def push_front(self, x):
@@ -35,7 +34,7 @@ class Teque:
 #Sample input
 
 
-f = open('inputs/input_100000', 'r') #Open inputfile
+f = open('inputs/eksempel_input', 'r') #Open inputfile
 Lines = f.readlines() #read each line of file
 
 
