@@ -21,7 +21,7 @@ def build_graph(lines):
         #Add edges from v to u, u to v
         E[v].add(u)
         E[u].add(v)
-
+        print(E[v])
         #Add weights to the edges
         w[(v, u)] = int(weight)
         w[(u, v)] = int(weight)
