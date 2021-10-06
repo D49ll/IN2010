@@ -1,56 +1,61 @@
-from collections import defaultdict
+class Movie:
+    def __init__(self, title, rating):
+        self.title = title
+        self.rating = rating
+    
+class Actor:
+    def __init__(self, id,  name, movies):
+        self.name = name
+        self.movies = movies
+        self.id = id
+    
+    def get_name(self):
+        print(self.name)
 
-actors_tsv = open('actors2.tsv').read()
+    def get_movies(self):
+        print(self.movies)
+
+    def __eq__(self,other):
+        print(set(self.movies) & set(other.movies))
+
+
+
+
+actors_tsv = open('actors.tsv').read()
 movies_tsv = open('movies.tsv').read()
 
 imdb_database = dict()
-actors = dict()
+actors = list()
 
 #IMDB movie database
 for line in movies_tsv.splitlines():
     movie_id, movie_title, movie_rating, _ = line.split('\t')
-    imdb_database[movie_id] = [movie_title, movie_rating]
+    imdb_database[movie_id] = Movie(movie_title, movie_rating)
 
 #Actors
 for actor in actors_tsv.splitlines():
-    id, name, *movies = line.split('\t')
+    id, name, *movies = actor.split('\t')
     filmography = []
     for movie in movies:
         if movie in imdb_database:
             filmography.append(movie) 
-    actors[id] = [name, filmography]
-
-E = defaultdict(set)
-w = dict()
-
-
-
-
-
-# #Edges and weights
-# for actor_info1 in actors.values():
-#     print(actor_info1[0])
-
-#     for movie_id in actor_info1[1]:
-#         print(imdb_database[movie_id])
-#         for actor_info2 in actors.values():
-#             #print(actor_info2[0])
-#             if actor_info1[0] == actor_info2[0]:
-#                 continue
-#             elif movie_id in actor_info2[1]:
-#                 E[actor_info1[0]].add(actor_info2[0])
-                
-
-
-# #Nodes and Edges
-# print(f'Nodes: {len(actors)}')
-# sum = 0
-# for actor in actors.values():
-#     sum+=len(E[actor[0]])
-
-# print(f'Edges:{sum}')
-        
-
-
     
-    
+    #actors[id] = [name, filmography]
+    # print(name)
+    actors.append(Actor(id, name, movies))
+
+print(len(actors))
+
+# for i in range(len(actors)):
+#     actors[i].get_name()
+
+
+
+# for movie in imdb_database:
+#     actors_in_movie = []
+
+#     for actor in actors:
+#         if movie in actors[actor][1]:
+#             actors_in_movie.append(actor)
+
+
