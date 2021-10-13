@@ -19,10 +19,11 @@ class Movie:
     
     def get_actors(self):
         return self.actors
-
+    
 class Actor:
     '''
-    sett inn beskrivelse her          
+    En klasse som initieres med name til en skuespiller.
+    Innholder også alle filmene skuespilleren har spilt i.           
     '''
     def __init__(self, name):
         self.name = name

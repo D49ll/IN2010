@@ -1,0 +1,13 @@
+graph {
+	B -- A
+	C -- A
+	D -- B
+	E -- C
+	H -- C
+	F -- D
+	J -- E
+	G -- H
+	L -- J
+	K -- J
+	I -- G
+}
