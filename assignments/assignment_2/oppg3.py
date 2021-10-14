@@ -22,14 +22,14 @@ def shortest_path_dijkstra_best_rating(G, s):
     parents_path = {s : (None, None)} 
 
     while Q:
-        cost, v1 = heappop(Q)
-        for e in V[v1].get_movies():
+        cost, v = heappop(Q)
+        for e in V[v].get_movies():
             c = cost + (10-float(E[e].get_rating()))
-            for v2 in E[e].get_actors():
-                if c < D[v2] and v1 != v2:
-                    D[v2] = c
-                    heappush(Q, (c, v2))
-                    parents_path[v2] = (v1, e)
+            for u in E[e].get_actors():
+                if c < D[u] and v != u:
+                    D[u] = c
+                    heappush(Q, (c, u))
+                    parents_path[u] = (v, e)
     return parents_path
 
 

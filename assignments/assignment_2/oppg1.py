@@ -59,6 +59,7 @@ def main():
     f2 = 'movies.tsv'
     G = make_graph(f1, f2) # "lager grafene" og returnerer dict for skuespiller og filmer
     num_a, num_m = count_V_E(G)
+    print()
     print(f'Nodes:{num_a}')
     print(f'Edges:{num_m}')
 
@@ -67,6 +68,7 @@ def solu_func():
     f2 = 'movies.tsv'
     G = make_graph(f1, f2) # "lager grafene" og returnerer dict for skuespiller og filmer
     num_a, num_m = count_V_E(G)
+    print()
     print(f'Nodes:{num_a}')
     print(f'Edges:{num_m}')
     return G

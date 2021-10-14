@@ -7,7 +7,7 @@ def components_and_size(G):
     key_V = list(V.keys())
     while key_V:
         start_node = key_V[0]
-        parents = oppg2.shortest_path_dijkstra(G, start_node)
+        parents = oppg2.bfs_shortest_path_from_to(G, start_node)
         if len(parents) in size_of_comp:
             size_of_comp[len(parents)] = size_of_comp[len(parents)] + 1
         else:

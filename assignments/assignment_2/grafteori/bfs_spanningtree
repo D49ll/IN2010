@@ -1,13 +1,13 @@
 graph {
-	B -- A
 	C -- A
-	D -- B
+	B -- A
 	E -- C
 	H -- C
-	F -- D
+	D -- C
 	J -- E
+	F -- E
 	G -- H
-	L -- J
 	K -- J
+	L -- J
 	I -- G
 }
