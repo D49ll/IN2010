@@ -4,32 +4,47 @@ from heapq import heappush, heappop
 import oppg1
 import oppg2
 
-def shortest_path_dijkstra_best_rating(G, s):
+def shortest_path_dijkstra_best_rating(G, start, end=None):
     '''
     Tar inn:
         G - Graf: Tuple av dict: skuespiller og film
-        s - Start_node: string: skuespiller-id
+        start - Start_node: string: skuespiller-id
 
     Returnerer:
         parents_path - dict
             key: node_id
             value: tuple(foreldre node_id, høyeste kant)
     '''    
-    V, E = G
-    Q = [(0, s)]
-    D = defaultdict(lambda: float('inf'))
-    D[s] = 0
-    parents_path = {s : (None, None)} 
+    V, E = G #Finner alle kanter og noder
+    Q = [(0, start)] #Første steg koster ingenting, legger dette i køen
+    D = defaultdict(lambda: float('inf')) #Oppretter en defaultdict D. D blir initiert med uendelig kost
+    
+    D[start] = 0 #Oppdaterer kosten for å stå i start
+    found = False
+    parents_path = {start : (None, None)} #{node : (neste_node, kost)}
 
     while Q:
+        #Henter fra kø
         cost, v = heappop(Q)
+        
+        #Dersom heap inneholder noden vi ønsker å stoppe i betyr det at vi er i mål
+        #Kan stoppe traverseringen og returnere treet, parents path.
+        if v == end:
+            return parents_path
+        #For alle kanter tilhørende noden v
         for e in V[v].get_movies():
+
+            #oppdaterer kosten til aktuell kant, NB! den inverse verdien.
             c = cost + (10-float(E[e].get_rating()))
+            
+            #Sjekker alle noder aktuell kant leder til
             for u in E[e].get_actors():
+                #Finner den kanten med minst kost
                 if c < D[u] and v != u:
                     D[u] = c
                     heappush(Q, (c, u))
                     parents_path[u] = (v, e)
+
     return parents_path
 
 
@@ -41,10 +56,10 @@ def main():
     end_list = ['nm0000460', 'nm0000243', 'nm0000365', 'nm0001401', 'nm0931324']
     
     
-    for s, e in zip(start_list, end_list):
-        span_tree = shortest_path_dijkstra_best_rating(G, s)
-        shortest_path = oppg2.bfs_shortest_path_between(span_tree, e)
-        oppg2.pretty_print(G, s, shortest_path, weight = True)
+    for start, end in zip(start_list, end_list):
+        span_tree = shortest_path_dijkstra_best_rating(G, start, end)
+        shortest_path = oppg2.bfs_shortest_path_between(span_tree, end)
+        oppg2.pretty_print(G, start, shortest_path, weight = True)
 
 
 def solu_func(G):
@@ -52,10 +67,10 @@ def solu_func(G):
     end_list = ['nm0000460', 'nm0000243', 'nm0000365', 'nm0001401', 'nm0931324']
     
     
-    for s, e in zip(start_list, end_list):
-        span_tree = shortest_path_dijkstra_best_rating(G, s)
-        shortest_path = oppg2.bfs_shortest_path_between(span_tree, e)
-        oppg2.pretty_print(G, s, shortest_path, weight = True)
+    for start, end in zip(start_list, end_list):
+        span_tree = shortest_path_dijkstra_best_rating(G, start, end)
+        shortest_path = oppg2.bfs_shortest_path_between(span_tree, end)
+        oppg2.pretty_print(G, start, shortest_path, weight = True)
 
 if __name__ == "__main__":
     main()
