@@ -9,42 +9,45 @@ def shortest_path_dijkstra_best_rating(G, start, end=None):
     Tar inn:
         G - Graf: Tuple av dict: skuespiller og film
         start - Start_node: string: skuespiller-id
-
     Returnerer:
         parents_path - dict
             key: node_id
             value: tuple(foreldre node_id, høyeste kant)
     '''    
     V, E = G #Finner alle kanter og noder
-    Q = [(0, start)] #Første steg koster ingenting, legger dette i køen
-    D = defaultdict(lambda: float('inf')) #Oppretter en defaultdict D. D blir initiert med uendelig kost
+    Q = [(0, 0, start)] #Første steg koster ingenting, legger dette i køen
+    D = defaultdict(lambda: (float('inf'), float('inf'))) #Oppretter en defaultdict D for (Antall steg, rating). D blir initiert med steg = inf og rating = 0
     
-    D[start] = 0 #Oppdaterer kosten for å stå i start
-    found = False
-    parents_path = {start : (None, None)} #{node : (neste_node, kost)}
+    D[start] = (0,0) #Oppdaterer steg for å stå i start
+
+    parents_path = {start : (None, None)} #Første steg
+    final_step = float('inf')
 
     while Q:
         #Henter fra kø
-        cost, v = heappop(Q)
+        step, rating, v = heappop(Q)
         
-        #Dersom heap inneholder noden vi ønsker å stoppe i betyr det at vi er i mål
-        #Kan stoppe traverseringen og returnere treet, parents path.
-        if v == end:
+        step += 1
+        if final_step < step:
             return parents_path
+
         #For alle kanter tilhørende noden v
         for e in V[v].get_movies():
-
+            current_movie_rating = (10-float(E[e].get_rating()))
+            tot_rating = rating + current_movie_rating
             #oppdaterer kosten til aktuell kant, NB! den inverse verdien.
-            c = cost + (10-float(E[e].get_rating()))
             
             #Sjekker alle noder aktuell kant leder til
             for u in E[e].get_actors():
+                if end == u:
+                    final_step = step
                 #Finner den kanten med minst kost
-                if c < D[u] and v != u:
-                    D[u] = c
-                    heappush(Q, (c, u))
+                if step <= D[u][0] and tot_rating <= D[u][1] and v != u:
+                    D[u] = (step, tot_rating)
+                    heappush(Q, (step, tot_rating, u))
                     parents_path[u] = (v, e)
-
+ 
+                
     return parents_path
 
 
