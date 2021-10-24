@@ -1,0 +1,26 @@
+digraph {
+	A
+	A -> B [label=1]
+	A -> D [label=7]
+	E
+	E -> F [label=16]
+	E -> H [label=4]
+	E -> G [label=15]
+	G
+	G -> F [label=2]
+	B
+	B -> D [label=3]
+	B -> C [label=6]
+	D
+	D -> E [label=14]
+	D -> F [label=11]
+	C
+	C -> E [label=9]
+	C -> D [label=13]
+	C -> A [label=5]
+	F
+	F -> C [label=12]
+	H
+	H -> F [label=8]
+	H -> G [label=10]
+}

@@ -1,0 +1,9 @@
+graph {
+	B -- A [label=1]
+	C -- A [label=5]
+	D -- B [label=3]
+	E -- C [label=9]
+	F -- D [label=11]
+	G -- F [label=2]
+	H -- E [label=4]
+}

@@ -1,76 +1,50 @@
-from collections import defaultdict #default dict raises no KeyError
-import graphviz
+from collections import defaultdict
+from heapq import heappush, heappop
 
-def build_graph(lines):
-    #Input er en tekstfil hvor hver linje 
-    #representerer kanten mellom to noder
-    #og vekten til kanten.
+import functions as fn
 
-    V = set() #Nodes
-    E = defaultdict(set) #Edges
-    w = dict() #Weights
+def dijkstra(G, start):
+    _, E, w = G
+    Q = [(0, start)] #Oppdaterer startposisjon og kost. Legger dette på Q
+    D = defaultdict(lambda: float('inf'))
+    D[start] = 0 #Oppdaterer spenntreet med kost for startposisjon
 
-    #Ser på en linje om gangen
-    for line in lines.splitlines():
-        v, u, weight = line.strip().split()
+    parents = {start: None}
 
-        #Add nodes to graph
-        V.add(v) 
-        V.add(u)
+    while Q: #Så lenge det er noe i kø
+        
+        cost, v = heappop(Q) #Henter det minste elementet (noden) og tilhørende kost for å komme dit
 
-        #Add edges from v to u, u to v
-        E[v].add(u)
-        E[u].add(v)
-        print(E[v])
-        #Add weights to the edges
-        w[(v, u)] = int(weight)
-        w[(u, v)] = int(weight)
+        for u in E[v]: #Sjekker kantene til det minste elementet (noden)
+            c = cost + w[(v,u)] #Oppdaterer kost, dvs nåværende kost + kosten det vil ha å traversere fra v til u
+            if c < D[u]: #Dersom denne totale kosten er mindre enn den tidligere kosten endres den. Hust at D[u] initieres til uendelig ved første traversering
+                D[u] = c
+                heappush(Q, (c,u))#Den nye kosten for å nå u legges på heapen, sammen med aktuell node.
+                
+                parents[u] = v #Oppdaterer foreldren til u. Den som putter u på køen.
 
-    return V, E, w
-
-def draw_graph(G):
-    V, E, w = G
-
-    dot = graphviz.Graph()
-    seen_edges = set()
-
-    for v in V:
-        dot.node(v) #Lager en node
-
-        for u in E[v]:
-            if (u, v) in seen_edges:
-                continue
-            seen_edges.add((v, u))
-            dot.edge(v, u, label=str(w[(v, u)]))
-
-    dot.render('graph', format='png')
-
-def dfs_rec(G, start, visited, path):
-    #Ønsker kun å se på kanter til grafen
-    _, E, _ = G
-
-    path.append(start) #Definerer start posisjon
-    visited.add(start) #Oppdaterer at vi har vært i start noden
-
-    for v in E[start]:
-        if v not in visited:
-            dfs_rec(G, v, visited, path)
-
-    return path
+    return parents
 
 
 
-def main():
-    f = open("inout/simple_graph.txt")
+
+if __name__=='__main__':
+    f = open("inout/R_14-1")
     lines = f.read()
 
-    print(lines)
+    #Bygge grafer basert på input
+    G = fn.build_graph_undir(lines)
+    G_dir = fn.build_graph_dir(lines)
 
-    G = build_graph(lines)
-    draw_graph(G)
+    V,E,_ = G_dir
 
-    print(dfs_rec(G, 'A',set(),list()))
+    print(E)
+    #Visualiserer grafene
+    fn.draw_graph_dir(G_dir,'Directed')
+    fn.draw_graph_undir(G, 'Undirected')
+    
+    #Utfører operasjoner på grafer
+    #D = dijkstra(G, 'A')
 
-
-
-main()
+    #fn.draw_parents_weighted(G, D, 'dijkstra_spanningtree')
+    

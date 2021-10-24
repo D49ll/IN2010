@@ -1,0 +1,26 @@
+graph {
+	A
+	A -- C [label=5]
+	A -- D [label=7]
+	A -- B [label=1]
+	C
+	C -- E [label=9]
+	C -- D [label=13]
+	C -- B [label=6]
+	C -- F [label=12]
+	E
+	E -- D [label=14]
+	E -- H [label=4]
+	E -- G [label=15]
+	E -- F [label=16]
+	D
+	D -- B [label=3]
+	D -- F [label=11]
+	H
+	H -- F [label=8]
+	H -- G [label=10]
+	G
+	G -- F [label=2]
+	B
+	F
+}
